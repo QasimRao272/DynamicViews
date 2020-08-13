@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/sr_image_details_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:text="Name"
+        android:textColor="@android:color/white"
+        android:textSize="25sp" />
+
+    <ImageView
+        android:id="@+id/sr_image_IV"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/sr_image_details_TV"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/emoji" />
+
+</RelativeLayout>
