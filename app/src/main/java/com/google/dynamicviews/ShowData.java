@@ -7,29 +7,33 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ShowData extends AppCompatActivity {
-    Button btnSHowImage;
     RecyclerView objectRecyclerview;
     DatabaseHandler objectDatabaseHandler;
     RVAdapter objectRvAdapter;
+    TextView noviews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_data);
 
-        btnSHowImage = findViewById(R.id.show_image_button);
         objectRecyclerview = findViewById(R.id.imageRV);
+        noviews = findViewById(R.id.noviews);
         objectDatabaseHandler = new DatabaseHandler(this);
+        showEmptyviews();
+    }
 
-        btnSHowImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getData();
-            }
-        });
+    private void showEmptyviews() {
+        if (objectDatabaseHandler.getAllImagesData().isEmpty()) {
+            noviews.setVisibility(View.VISIBLE);
+        } else {
+            objectDatabaseHandler.getAllImagesData();
+            noviews.setVisibility(View.GONE);
+        }
     }
 
     public void getData() {
@@ -41,5 +45,11 @@ public class ShowData extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getData();
     }
 }

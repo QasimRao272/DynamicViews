@@ -41,11 +41,13 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolderClass>
     public static class RVViewHolderClass extends RecyclerView.ViewHolder {
         TextView imageNameTV;
         ImageView objectImageView;
+        TextView tvID;
 
         public RVViewHolderClass(@NonNull View itemView) {
             super(itemView);
             imageNameTV = itemView.findViewById(R.id.sr_image_details_TV);
             objectImageView = itemView.findViewById(R.id.sr_image_IV);
+            tvID = itemView.findViewById(R.id.tvID);
         }
     }
 }

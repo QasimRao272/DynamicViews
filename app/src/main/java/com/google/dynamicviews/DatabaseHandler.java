@@ -20,9 +20,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     private static String DATABASE_NAME = "mydb.db";
     private static int DATABASE_VERSION = 1;
-    private static String createTableQuery = "create table imageInfo (imageName TEXT " + ", image BLOB)";
+    private static String createTableQuery = "create table imageInfo (id INTEGER PRIMARY KEY NOT NULL,imageName TEXT " + ", image BLOB)";
     private ByteArrayOutputStream objectByteArrayOutputStream;
     private byte[] imageInBytes;
+
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -77,15 +78,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<ModelClass> getAllImagesData() {
 
         try {
-            SQLiteDatabase objectSqLiteDatabase = this.getReadableDatabase();
             ArrayList<ModelClass> objectModelClassList = new ArrayList<>();
+
+            SQLiteDatabase objectSqLiteDatabase = this.getReadableDatabase();
 
             Cursor objectCursor = objectSqLiteDatabase.rawQuery("select * from imageInfo", null);
 
             if (objectCursor.getCount() != 0) {
                 while (objectCursor.moveToNext()) {
-                    String nameOfImage = objectCursor.getString(0);
-                    byte[] imageBytes = objectCursor.getBlob(1);
+                    String nameOfImage = objectCursor.getString(1);
+                    byte[] imageBytes = objectCursor.getBlob(2);
 
                     Bitmap objectBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                     objectModelClassList.add(new ModelClass(nameOfImage, objectBitmap));
@@ -93,7 +95,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 return objectModelClassList;
             } else {
                 Toast.makeText(context, "No Data Exist In Database", Toast.LENGTH_SHORT).show();
-                return null;
+                return objectModelClassList;
             }
         } catch (Exception e) {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
